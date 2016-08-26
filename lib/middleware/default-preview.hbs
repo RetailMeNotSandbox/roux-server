@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<title>{{ingredientName}} Preview</title>
+		{{#if hasStyles}}
+		<link rel="stylesheet" type="text/css" href="./assets/index.css">
+		{{/if}}
+	</head>
+	<body>
+		{{> ingredient model}}
+		{{#if hasScript}}
+		<script src="./assets/index.js"></script>
+		{{/if}}
+	</body>
+</html>
