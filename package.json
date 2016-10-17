@@ -21,16 +21,16 @@
   "author": "RMN Engineering",
   "contributors": [
     "Eric Capps <ecapps@rmn.com>",
-    "Elyse Holladay <eholladay@rmn.com>"
+    "Elyse Holladay <eholladay@rmn.com>",
     "Lon Ingram <lingram@rmn.com>",
     "Kyle Smith <kbsmith@rmn.com>",
     "Luke Zilioli <lzilioli@rmn.com>"
   ],
   "license": "MIT",
   "dependencies": {
-    "@retailmenot/roux": "^2.0.1",
-    "@retailmenot/roux-handlebars-tools": "^4.1.0",
-    "@retailmenot/roux-sass-importer": "^3.0.0",
+    "@retailmenot/roux": "^1.0.1",
+    "@retailmenot/roux-handlebars-tools": "^1.0.0",
+    "@retailmenot/roux-sass-importer": "^1.0.0",
     "bluebird": "^3.3.5",
     "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.21.0",
