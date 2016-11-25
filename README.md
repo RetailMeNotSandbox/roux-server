@@ -2,6 +2,8 @@
 
 Express application that serves a pantry of ingredients for the Roux ecosystem.
 
+[![Build Status](https://travis-ci.org/RetailMeNotSandbox/roux-server.svg?branch=master)](https://travis-ci.org/RetailMeNotSandbox/roux-server)
+
 ## Installation
 
 ```sh
@@ -94,7 +96,7 @@ $ roux-server --namespace 'your-pantry-namespace'
 ##### Providing helpers
 
 In the CLI, you can provide `helpers` arguments which will register helpers on
-the Handlebars instance. 
+the Handlebars instance.
 
 The `helpers` argument accepts a module path which behaves similarly to a
 `require()` from the current working directory.
