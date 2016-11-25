@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@retailmenot/core-ui-eslintrc": "^5.0.0",
-    "eslint": "^2.11.1",
+    "eslint": "^3.10.2",
     "grunt": "^0.4.5",
     "gruntify-eslint": "^1.2.0",
     "mkdirp": "^0.5.1",
