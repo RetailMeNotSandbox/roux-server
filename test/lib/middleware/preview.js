@@ -227,6 +227,37 @@ tap.test('API', function (t) {
 
 				t.end();
 			});
+
+			t.test('config.basePreviewModel', function (t) {
+				t.doesNotThrow(function () {
+					previewMiddleware({
+						name: '',
+						path: ''
+					});
+				}, 'is optional');
+
+				_.forEach(
+					[
+						'',
+						'foo',
+						0,
+						123,
+						true,
+						false,
+						undefined
+					],
+					function (arg) {
+						t.throws(function () {
+							previewMiddleware({
+								name: '',
+								path: '',
+								basePreviewModel: arg
+							});
+						}, 'must be an object');
+					});
+
+				t.end();
+			});
 		});
 
 		t.test('accepts an optional callback', function (t) {
@@ -723,6 +754,65 @@ tap.test('API', function (t) {
 					});
 				});
 			});
+		});
+
+		t.test('honors the config.basePreviewModel', function (t) {
+			var previewTemplate = '{{>ingredient}}';
+			var ingredientTemplate = '{{ @root.test.foo }}';
+			var expected = 'bar';
+
+			scaffold(FIXTURES_DIR, {
+				path: {
+					to: {
+						pantry: {
+							ingredient: ['ingredient.md', 'index.hbs', 'preview.hbs']
+						}
+					}
+				}
+			});
+
+			fs.writeFileSync(
+				path.resolve(
+					FIXTURES_DIR, 'path/to/pantry/ingredient/index.hbs'),
+				ingredientTemplate
+			);
+
+			fs.writeFileSync(
+				path.resolve(
+					FIXTURES_DIR, 'path/to/pantry/ingredient/preview.hbs'),
+				previewTemplate
+			);
+
+			var middleware = previewMiddleware({
+				name: 'pantry',
+				path: path.resolve(FIXTURES_DIR, 'path/to/pantry'),
+				basePreviewModel: {
+					test: {
+						foo: 'bar'
+					}
+				}
+			});
+
+			middleware(
+				{
+					params: {
+						0: 'ingredient'
+					},
+					query: {}
+				},
+				{
+					send: sinon.spy(function (result) {
+						t.equal(
+							result,
+							expected,
+							'template rendered into preview template'
+						);
+
+						t.end();
+					})
+				},
+				next.bind(t)
+			);
 		});
 
 		t.test('renders the ingredient with the model entry point if present',
