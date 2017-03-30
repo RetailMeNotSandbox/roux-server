@@ -1,6 +1,6 @@
 {
   "name": "@retailmenot/roux-server",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Express application that serves a pantry of ingredients for the Roux ecosystem.",
   "main": "index.js",
   "scripts": {
