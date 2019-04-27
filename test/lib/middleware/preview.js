@@ -354,48 +354,48 @@ tap.test('API', function (t) {
 
 		t.test('renders the empty string into the preview entry point if ' +
 			'ingredient has no handlebars entry point',
-			function (t) {
-				var previewTemplate = 'preview {{> ingredient }}';
-				var expected = previewTemplate.replace('{{> ingredient }}', '');
+		function (t) {
+			var previewTemplate = 'preview {{> ingredient }}';
+			var expected = previewTemplate.replace('{{> ingredient }}', '');
 
-				scaffold(FIXTURES_DIR, {
-					pantry: {
-						ingredient: ['ingredient.md', 'index.hbs'],
-						'no-handlebars': ['ingredient.md', 'preview.hbs']
-					}
-				});
-
-				fs.writeFileSync(
-					path.resolve(FIXTURES_DIR, 'pantry/no-handlebars/preview.hbs'),
-					previewTemplate
-				);
-
-				var middleware = previewMiddleware({
-					name: 'pantry',
-					path: path.resolve(FIXTURES_DIR, 'pantry')
-				});
-
-				middleware(
-					{
-						params: {
-							0: 'no-handlebars'
-						},
-						query: {}
-					},
-					{
-						send: sinon.spy(function (result) {
-							t.equal(
-								result,
-								expected,
-								'template rendered into preview template'
-							);
-
-							t.end();
-						})
-					},
-					next.bind(t)
-				);
+			scaffold(FIXTURES_DIR, {
+				pantry: {
+					ingredient: ['ingredient.md', 'index.hbs'],
+					'no-handlebars': ['ingredient.md', 'preview.hbs']
+				}
 			});
+
+			fs.writeFileSync(
+				path.resolve(FIXTURES_DIR, 'pantry/no-handlebars/preview.hbs'),
+				previewTemplate
+			);
+
+			var middleware = previewMiddleware({
+				name: 'pantry',
+				path: path.resolve(FIXTURES_DIR, 'pantry')
+			});
+
+			middleware(
+				{
+					params: {
+						0: 'no-handlebars'
+					},
+					query: {}
+				},
+				{
+					send: sinon.spy(function (result) {
+						t.equal(
+							result,
+							expected,
+							'template rendered into preview template'
+						);
+
+						t.end();
+					})
+				},
+				next.bind(t)
+			);
+		});
 
 		t.test('preview template', function (t) {
 			t.autoend();
@@ -872,55 +872,55 @@ tap.test('API', function (t) {
 
 		t.test('renders the ingredient with the configured default model if no ' +
 			'model entry point present',
-			function (t) {
-				var template = '{{{foo}}}';
-				var model = {
-					foo: 'bar applesauce'
-				};
-				var expected = template.replace('{{{foo}}}', model.foo);
+		function (t) {
+			var template = '{{{foo}}}';
+			var model = {
+				foo: 'bar applesauce'
+			};
+			var expected = template.replace('{{{foo}}}', model.foo);
 
-				scaffold(FIXTURES_DIR, {
-					path: {
-						to: {
-							pantry: {
-								ingredient: ['ingredient.md', 'index.hbs']
-							}
+			scaffold(FIXTURES_DIR, {
+				path: {
+					to: {
+						pantry: {
+							ingredient: ['ingredient.md', 'index.hbs']
 						}
 					}
-				});
-
-				fs.writeFileSync(
-					path.resolve(FIXTURES_DIR, 'path/to/pantry/ingredient/index.hbs'),
-					template
-				);
-
-				var middleware = previewMiddleware({
-					name: 'pantry',
-					path: path.resolve(FIXTURES_DIR, 'path/to/pantry'),
-					defaultModel: model
-				});
-
-				middleware(
-					{
-						params: {
-							0: 'ingredient'
-						},
-						query: {}
-					},
-					{
-						send: sinon.spy(function (result) {
-							t.match(
-								result,
-								expected,
-								'template rendered with model entry point'
-							);
-
-							t.end();
-						})
-					},
-					next.bind(t)
-				);
+				}
 			});
+
+			fs.writeFileSync(
+				path.resolve(FIXTURES_DIR, 'path/to/pantry/ingredient/index.hbs'),
+				template
+			);
+
+			var middleware = previewMiddleware({
+				name: 'pantry',
+				path: path.resolve(FIXTURES_DIR, 'path/to/pantry'),
+				defaultModel: model
+			});
+
+			middleware(
+				{
+					params: {
+						0: 'ingredient'
+					},
+					query: {}
+				},
+				{
+					send: sinon.spy(function (result) {
+						t.match(
+							result,
+							expected,
+							'template rendered with model entry point'
+						);
+
+						t.end();
+					})
+				},
+				next.bind(t)
+			);
+		});
 
 		t.test('makes model available even in absence of handlebars entrypoint',
 			function (t) {

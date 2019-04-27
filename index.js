@@ -14,16 +14,16 @@ function initServer(config, callback) {
 
 	var previewPromise = Promise.fromCallback(function (callback) {
 		app.use(/^\/(.+)\/preview/, previewMiddleware(
-				_.defaults({
-					name: config.namespace,
-					path: config.baseDir,
-					helpers: Object.assign(
-						{},
-						config.helpers
-					)
-				}, config),
-				callback
-			)
+			_.defaults({
+				name: config.namespace,
+				path: config.baseDir,
+				helpers: Object.assign(
+					{},
+					config.helpers
+				)
+			}, config),
+			callback
+		)
 		);
 	});
 
@@ -33,12 +33,12 @@ function initServer(config, callback) {
 
 	var documentationPromise = Promise.fromCallback(function (callback) {
 		app.use(/^\/(.+)\/docs/, documentationMiddleware(
-				_.defaults({
-					name: config.namespace,
-					path: config.baseDir
-				}, config),
-				callback
-			)
+			_.defaults({
+				name: config.namespace,
+				path: config.baseDir
+			}, config),
+			callback
+		)
 		);
 	});
 
@@ -53,8 +53,8 @@ function initServer(config, callback) {
 			assetsPromise,
 			documentationPromise
 		])
-		.return()
-		.asCallback(callback);
+			.return()
+			.asCallback(callback);
 	}
 
 	return app;
